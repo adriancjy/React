@@ -48,8 +48,7 @@ class AnalyticsDashboard extends Component {
   constructor(props) {
    super(props);
    this.state = {
-
-   
+     data: "",
      series1: [{
        data: [0, 0, 0, 0, 0, 0, 0, 0, 0]
      }],
@@ -163,6 +162,15 @@ class AnalyticsDashboard extends Component {
 
  }
 
+ async componentDidMount() {
+  try {
+    this.state.data = localStorage.getItem("userEmail");
+    console.log(this.state.data);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
   render() {
     return (
       <Fragment>
@@ -220,7 +228,7 @@ class AnalyticsDashboard extends Component {
                 chartData={StaticCardData.ChartistData2}
                 cardBgColor="bg-info"
                 statistics="$4566"
-                text="Net profit/loss this month"
+                text="Net profit/loss"
                 iconSide="right"
               >
                 <Icon.DollarSign size={36} strokeWidth="1.3" color="#fff" />
