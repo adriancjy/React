@@ -4,6 +4,8 @@ import ContentHeader from "../../components/contentHead/contentHeader";
 import ContentSubHeader from "../../components/contentHead/contentSubHeader";
 import { Card, CardBody, CardTitle, Row, Col } from "reactstrap";
 
+import axios from "axios";
+
 //Prism
 // eslint-disable-next-line
 import Prism from "prismjs"; //Include JS
@@ -45,6 +47,7 @@ class regular extends Component {
    constructor(props) {
       super(props);
       this.state = {
+        transaction: [],
    
       
         series1: [{
@@ -165,6 +168,37 @@ class regular extends Component {
       }
    };
 
+   async componentWillMount() {
+
+    try 
+    {
+      const headers = 
+      {
+        'identity': 'T7',
+        'token': 'af1c9e83-266a-4c97-80fa-25c84e2f39fd'
+      }
+      this.state.custId = localStorage.getItem("custId");
+      this.state.accId = localStorage.getItem("accId");
+  
+      axios
+         .get(`http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/${this.state.accId}?from=01-01-2018&to=01-30-2020`,{headers})
+         .then(res => {
+           const transaction = res.data;
+           this.setState({transaction});
+           
+      
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+    catch (e) 
+    {
+      console.log(e);
+    }
+    
+  };
+
   render() {
     return (
       <Fragment>
@@ -200,42 +234,6 @@ class regular extends Component {
         </Row>
         <Row>
           <Col sm="12">
-          <Card>
-              <CardBody>
-                <div id="wrapper">
-                  <div id="chart-line">
-                    <Apexchart
-                      type="area"
-                      height="300"
-                      options={this.state.chartOptionsLine1}
-                      series={this.state.series1}
-                    />
-                  </div>
-
-                  <div id="chart-line2">
-                    <Apexchart
-                      type="area"
-                      height="300"
-                      options={this.state.chartOptionsLine2}
-                      series={this.state.series2}
-                    />
-                  </div>
-
-                  <div id="chart-area">
-                    <Apexchart
-                      type="area"
-                      height="300"
-                      options={this.state.chartOptionsArea}
-                      series={this.state.series3}
-                    />
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm="12">
             <Card>
               <CardBody>
                 <CardTitle>Hoverable Rowse</CardTitle>
@@ -244,7 +242,7 @@ class regular extends Component {
                   <code>&lt;Table hover&gt;</code>.
                 </p>
                 <CustomTabs
-                  TabContent1={<TableHoverExample />}
+                  TabContent1={<TableHoverExample data={this.state.transaction} />}
                   TabContent2={
                     <PrismCode component="pre" className="language-javascript">
                       {TableHoverExampleSource}

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Row, Col, Card, CardTitle, CardHeader, CardBody } from "reactstrap";
 
 import * as Icon from "react-feather";
-
+import axios from "axios";
 import { StaticCardData } from "../cards/staticCardData";
 import { AdvancedCardData } from "../cards/advancedCardData";
 
@@ -50,6 +50,12 @@ class AnalyticsDashboard extends Component {
    this.state = {
      custId: "",
      accId: "",
+     availableBalance: "",
+     currency: "",
+     dateOfBalance: "",
+     displayName: "",
+     accountNumber: "",
+     accountType: "",
      series1: [{
        data: [0, 0, 0, 0, 0, 0, 0, 0, 0]
      }],
@@ -59,6 +65,8 @@ class AnalyticsDashboard extends Component {
      series3: [{
        data: [0, 0, 0, 0, 0, 0, 0, 0, 0],
      }],
+
+     
      /*
            newseries1: [{
              data: [19.8, 19.4, 18.9, 18.5, 18.1, 17.8, 17.5, 17.3, 17.0]
@@ -163,19 +171,42 @@ class AnalyticsDashboard extends Component {
 
  }
 
- async componentDidMount() {
-  try {
+ async componentWillMount() {
+
+  try 
+  {
+    const headers = 
+    {
+      'identity': 'T7',
+      'token': 'af1c9e83-266a-4c97-80fa-25c84e2f39fd'
+    }
     this.state.custId = localStorage.getItem("custId");
     this.state.accId = localStorage.getItem("accId");
 
-    console.log(this.state.custId);
-    console.log(this.state.accId);
-  } catch (e) {
+    axios
+       .get(`http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/79/balance?month=1&year=2018`,{headers})
+       .then(res => {
+         const persons = res.data;
+         this.state.currency = persons["currency"];
+         this.state.dateOfBalance = persons["dateOfBalance"];
+         this.state.displayName = persons["displayName"];
+         this.state.accountNumber = persons["accountNumber"];
+         this.state.accountType = persons["accountType"];
+         this.setState({availableBalance: persons["availableBalance"]});
+
+    
+    });
+  }
+  catch (e) 
+  {
     console.log(e);
   }
-}
+  
+};
+
 
   render() {
+    console.log(this.state.availableBalance);
     return (
       <Fragment>
         {/* Statistics 
@@ -191,10 +222,10 @@ class AnalyticsDashboard extends Component {
                 chartData={StaticCardData.ChartistData2}
                 cardBgColor="bg-danger"
                 /* Put money value from API */
-                statistics="$2156"
+                statistics = {this.state.availableBalance}
+                //statistics="$500"
                 text="Account Balance"
                 iconSide="right"
-                onClick={this.cardClicked}
               >
                 <Icon.PieChart size={36} strokeWidth="1.3" color="#fff" />
               </MinimalStatisticsChart2>

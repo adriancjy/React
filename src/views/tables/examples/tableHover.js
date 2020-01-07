@@ -1,7 +1,25 @@
 import React from 'react';
 import { Table } from 'reactstrap';
 
+
 export default class Example extends React.Component {
+
+  async componentWillMount() {
+
+    try 
+    {
+      console.log(this.props.data[0]);
+      if(this.props.data[0]){
+        console.log(this.props.data[0].type);
+      }
+    }
+    catch (e) 
+    {
+      console.log(e);
+    }
+    
+  };
+
   render() {
     return (
       <Table hover>
