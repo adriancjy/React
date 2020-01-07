@@ -7,45 +7,22 @@ class NavbarSearch extends Component {
    state = {
       list: [
          {
-            url: "/",
-            name: "eCommerce"
-         },
-         {
             url: "/analytics-dashboard",
-            name: "Analytics"
+            name: "Dashboard"
          },
          {
-            url: "/sales-dashboard",
-            name: "Sales"
+            url: "/pages/user-profile",
+            name: "User Profile"
          },
          {
-            url: "/email",
-            name: "Email"
+            url: "/tables/regular",
+            name: "Transaction History"
          },
          {
-            url: "/chat",
-            name: "Chat"
-         },
-         {
-            url: "/contacts",
-            name: "Contacts"
-         },
-         {
-            url: "/todo",
-            name: "Todo"
-         },
-         {
-            url: "/calendar",
-            name: "Calendar"
-         },
-         {
-            url: "/cards/advanced-card",
-            name: "Advanced card"
-         },
-         {
-            url: "/cards/statistic-card",
-            name: "Statistic card"
+            url: "/charts/chartjs",
+            name: "Aggregated Expenditure"
          }
+         
       ],
       searchTerm: "",
       filtered: []

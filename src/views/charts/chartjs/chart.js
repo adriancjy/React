@@ -4,117 +4,63 @@ import { Row, Col, Card, CardTitle, CardHeader, CardBody } from "reactstrap";
 import { Bar, Line, Scatter, Radar, Pie, Polar, Doughnut } from "react-chartjs-2";
 
 import {
-   BarData,
-   LineChartData,
-   AreaChartdata,
-   ScatterData,
-   DoughnutData,
-   RadarData,
    PieData,
-   PolarData
 } from "./chartData";
 
 const ChartJS = props => (
    <Fragment>
       <Row>
          <Col sm="12" className="content">
-            <div className="content-header text-dark">List</div>
-            <p className="content-sub-header">
-               List groups are a flexible and powerful component for displaying not only simple lists of elements, but
-               complex ones with custom content.
-            </p>
+            <div className="content-header text-dark">Aggregated Expenditure </div>
          </Col>
       </Row>
-
       <Row>
          <Col sm="12">
             <Card>
                <CardHeader>
-                  <CardTitle>Bootstrap Grid options</CardTitle>
-               </CardHeader>
-               <CardBody>
-                  <Line height={400} data={LineChartData.data} options={LineChartData.options} />
-               </CardBody>
-            </Card>
-         </Col>
-
-         <Col sm="12">
-            <Card>
-               <CardHeader>
-                  <CardTitle>AREA CHART</CardTitle>
-               </CardHeader>
-               <CardBody>
-                  <Line height={400} data={AreaChartdata.data} options={AreaChartdata.options} />
-               </CardBody>
-            </Card>
-         </Col>
-
-         <Col sm="12">
-            <Card>
-               <CardHeader>
-                  <CardTitle>SCATTER CHART</CardTitle>
-               </CardHeader>
-               <CardBody>
-                  <Scatter height={400} data={ScatterData.data} options={ScatterData.options} />
-               </CardBody>
-            </Card>
-         </Col>
-
-         <Col sm="12">
-            <Card>
-               <CardHeader>
-                  <CardTitle>BAR CHART</CardTitle>
-               </CardHeader>
-               <CardBody>
-                  <Bar height={400} data={BarData.data} options={BarData.options} />
-               </CardBody>
-            </Card>
-         </Col>
-
-         <Col sm="12">
-            <Card>
-               <CardHeader>
-                  <CardTitle>DOUGHNUT CHART</CardTitle>
-               </CardHeader>
-               <CardBody>
-                  <Doughnut height={400} data={DoughnutData.data} options={DoughnutData.options} />
-               </CardBody>
-            </Card>
-         </Col>
-
-         <Col sm="12">
-            <Card>
-               <CardHeader>
-                  <CardTitle>RADAR CHART</CardTitle>
-               </CardHeader>
-               <CardBody>
-                  <Radar height={400} data={RadarData.data} options={RadarData.options} />
-               </CardBody>
-            </Card>
-         </Col>
-
-         <Col sm="12">
-            <Card>
-               <CardHeader>
-                  <CardTitle>PIE CHART</CardTitle>
+                  <CardTitle>Overview</CardTitle>
                </CardHeader>
                <CardBody>
                   <Pie height={400} data={PieData.data} options={PieData.options} />
                </CardBody>
             </Card>
          </Col>
-
-         <Col sm="12">
-            <Card>
-               <CardHeader>
-                  <CardTitle>POLAR CHART</CardTitle>
-               </CardHeader>
-               <CardBody>
-                  <Polar height={400} data={PolarData.data} options={PolarData.options} />
-               </CardBody>
-            </Card>
-         </Col>
       </Row>
+      <Row>
+      <Col sm="12">
+                  <Card>
+                     <CardBody>
+                        <CardTitle>
+                           Products You May Be Interested In ...
+                           <small className="text-muted ml-2"></small>
+                        </CardTitle>
+                        <p>
+                           List of items in which the order does explicitly
+                           matter.
+                        </p>
+                        <ol>
+                           <li>Lorem ipsum dolor sit amet</li>
+                           <li>Consectetur adipiscing elit</li>
+                           <li>Integer molestie lorem at massa</li>
+                           <li>Facilisis in pretium nisl aliquet</li>
+                           <li>
+                              Nulla volutpat aliquam velit
+                              <ol>
+                                 <li>Phasellus iaculis neque</li>
+                                 <li>Purus sodales ultricies</li>
+                                 <li>Vestibulum laoreet porttitor sem</li>
+                                 <li>Ac tristique libero volutpat at</li>
+                              </ol>
+                           </li>
+                           <li>Faucibus porta lacus fringilla vel</li>
+                           <li>Aenean sit amet erat nunc</li>
+                           <li>Eget porttitor lorem</li>
+                        </ol>
+                     </CardBody>
+                  </Card>
+               </Col>
+      </Row>
+
    </Fragment>
 );
 

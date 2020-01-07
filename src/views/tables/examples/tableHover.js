@@ -1,9 +1,7 @@
 import React from 'react';
-import { Table } from 'reactstrap';
-
+import { MDBDataTable } from 'mdbreact';
 
 export default class Example extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -11,38 +9,81 @@ export default class Example extends React.Component {
       amounts: [],
       dates: [],
       tags: [],
-      referenceNumbers: []
+      referenceNumbers: [],
+      dataRow: [],
+      dataCol: []
     }
   }
 
-  async componentWillMount() {
-
+ async componentWillReceiveProps(nextProps) {
+    console.log(nextProps.data.length);
     try 
     {
-      console.log(this.props.data[0]);
-      if(this.props.data[0]){
-
-          var types = []
-          var amounts = []
-          var dates = []
-          var tags = []
-          var referenceNumbers = []
-          
-          var i;
-          for(i=0; i<this.props.data.length ; i++ ) {
-            types.push(this.props.data[i]['type'])
-            amounts.push(this.props.data[i]['amount'])
-            dates.push(this.props.data[i]['date'])
-            tags.push(this.props.data[i]['tag'])
-            referenceNumbers.push(this.props.data[i]['referenceNumber'])
+      if(nextProps.data){
+        var types = []
+        var amounts = []
+        var dates = []
+        var tags = []
+        var referenceNumbers = []
+        var transactionArray = []
+        var arrayColumn = [
+          {
+            label: 'Type',
+            field: 'type',
+            sort: 'asc',
+            width: 150
+          },
+          {
+            label: 'Amount',
+            field: 'amount',
+            sort: 'asc',
+            width: 150
+          },
+          {
+            label: 'Date',
+            field: 'date',
+            sort: 'asc',
+            width: 150
+          },
+          {
+            label: 'Tag',
+            field: 'tag',
+            sort: 'asc',
+            width: 150
+          },
+          {
+            label: 'Reference',
+            field: 'referenceNumber',
+            sort: 'asc',
+            width: 150
           }
-          this.setState({types});
-          this.setState({amounts});
-          this.setState({dates});
-          this.setState({tags});
-          this.setState({referenceNumbers});
+        ]
+        
+        var i;
+        for(i=0; i<nextProps.data.length ; i++ ) {
+          types.push(nextProps.data[i]['type'])
+          amounts.push(nextProps.data[i]['amount'])
+          dates.push(nextProps.data[i]['date'])
+          tags.push(nextProps.data[i]['tag'])
+          referenceNumbers.push(nextProps.data[i]['referenceNumber'])
+          var arrData = 
+            {
+              type: nextProps.data[i]['type'],
+              amount: nextProps.data[i]['amount'],
+              date: nextProps.data[i]['date'],
+              tag: nextProps.data[i]['tag'],
+              referenceNumber: nextProps.data[i]['referenceNumber']
+            };
+          
+          transactionArray.push(arrData);
 
-      }
+        }
+        this.setState({dataRow: transactionArray});
+        this.setState({dataCol: arrayColumn});
+
+        
+
+    }
     }
     catch (e) 
     {
@@ -50,39 +91,18 @@ export default class Example extends React.Component {
     }
     
   };
-
   render() {
+    const data = {
+      columns: this.state.dataCol,
+      rows: this.state.dataRow
+    };
     return (
-      <Table hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
+      
+      <MDBDataTable
+      striped
+      hover
+      data={data}
+      />
     );
   }
 }
