@@ -164,7 +164,7 @@ class AnalyticsDashboard extends Component {
 
  async componentDidMount() {
   try {
-    this.state.data = localStorage.getItem("userEmail");
+    this.state.data = localStorage.getItem("userName");
     console.log(this.state.data);
   } catch (e) {
     console.log(e);
