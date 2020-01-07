@@ -2,10 +2,18 @@
 import React, { Fragment } from "react";
 import { Row, Col, Card, CardTitle, CardHeader, CardBody } from "reactstrap";
 import { Bar, Line, Scatter, Radar, Pie, Polar, Doughnut } from "react-chartjs-2";
-
+import axios from 'axios';
 import {
    PieData,
 } from "./chartData";
+async function test(){
+   const url = 'http://127.0.0.1:5000';
+   var accID = localStorage.getItem("accId");
+   const breakdownResponse = await axios.get(url + '/breakdown/' + accID);
+   console.log(breakdownResponse);
+}
+
+
 
 const ChartJS = props => (
    <Fragment>

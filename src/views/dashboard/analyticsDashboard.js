@@ -1,27 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Row, Col, Card, CardTitle, CardHeader, CardBody } from "reactstrap";
-
 import * as Icon from "react-feather";
-
 import { StaticCardData } from "../cards/staticCardData";
-import { AdvancedCardData } from "../cards/advancedCardData";
-
 import MinimalStatisticsChart2 from "../../components/cards/minimalStatisticsWithChart2Card";
-
-import DiscoverPeopleListCard from "../../components/cards/discoverPeopleListCard";
-import SalesAnalysisChartCarda from "../../components/cards/salesAnalysisChartCard";
-
-import FitnessStatisticsChart from "../../components/cards/fitnessStatisticsWithChartCard";
-
-import SalesPerVisitChartCard from "../../components/cards/salesPerVisitChartCard";
-import DailyDietListCard from "../../components/cards/dailyDietListCard";
-
-import UserStatisticsChartCard from "../../components/cards/userStatisticsChartCard";
-import CarouselSliderCard from "../../components/cards/carouselSliderCard";
-import EarningStatisticsChartCard from "../../components/cards/earningStatisticsChartCard";
-
 import Apexchart from "react-apexcharts";
-import {sgconsumerseries, sgconsumerpriceseries, sgyearprice} from "../charts/echartjs/agedeathData";
 import axios from 'axios';
 
 class AnalyticsDashboard extends Component {
@@ -107,8 +89,8 @@ class AnalyticsDashboard extends Component {
 
  async componentDidMount() {
   try {
-    this.state.data = localStorage.getItem("userEmail");
-    const accID = 79;
+    const accID = localStorage.getItem("accId");
+    console.log(accID);
     const url = 'http://127.0.0.1:5000';
     const balanceResponse = await axios.get(url + '/balance/' + accID);
     const balance = balanceResponse['data']['balance'];
@@ -128,6 +110,7 @@ class AnalyticsDashboard extends Component {
 }
 
   render() {
+    console.log(localStorage.getItem("accId"));
     return (
       <Fragment>
         {/* Statistics 

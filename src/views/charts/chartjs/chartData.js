@@ -1,6 +1,7 @@
 
 
 export const PieData = {
+   
    data: {
       labels: ["ATM", "F&B", "Online", "Leisure", "Transfer", "Transport"],
       datasets: [
