@@ -23,7 +23,10 @@ class Login extends Component {
       isChecked: true,
       loginEmail: "",
       loginPassword: "",
-      persons: []
+      persons: [],
+      custId: "",
+      accId: "",
+      userName: ""
     };
   }
 
@@ -34,38 +37,48 @@ class Login extends Component {
   };
 
   loginClick = e => {
-    if (
-      this.state.loginEmail == "test@hotmail.com" &&
-      this.state.loginPassword == "12345678"
-    ) {
-      this.props.history.push("/analytics-dashboard");
-      try {
-        //Api call with parameters.
-        //axios.get('https://site.com/?name=Flavio')
-       // axios.get("https://site.com/", {
-       //   params: {
-       //     name: "Flavio"
-       //   }
-       // });
-       axios
-         .get("http://dummy.restapiexample.com/api/v1/employees")
-         .then(res => {
-           //check value
-           const persons = res.data;
-           this.setState({ persons });
-         });
-         localStorage.setItem("userEmail", this.state.loginEmail);
-         console.log("Button click");
-     } catch (e) {
-       console.log(e);
-     }
-    } else if (this.state.loginEmail == "" || this.state.loginPassword == "") {
-      alert("Missing login information");
-    } else if (this.state.loginEmail !== "test@hotmail.com") {
-      alert("Incorrect email address");
-    } else if (this.state.loginPassword !== "12345678") {
-      alert("Incorrect password");
-    }
+    try {
+      //Api call with parameters.
+      //axios.get('https://site.com/?name=Flavio')
+     // axios.get("https://site.com/", {
+     //   params: {
+     //     name: "Flavio"
+     //   }
+     // });
+     const headers = {
+      'identity': 'T7',
+      'token': 'af1c9e83-266a-4c97-80fa-25c84e2f39fd'
+      }
+     let name = this.state.loginEmail;
+     axios
+       .get(`http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/${name}`,{headers})
+       .then(res => {
+         //check value
+         const persons = res.data;
+         this.state.custId = persons["customerId"];
+         this.state.userName = persons["userName"];
+         if (
+          this.state.loginEmail == this.state.userName &&
+          this.state.loginPassword == "12345678"
+        ) {
+          localStorage.setItem("userName", this.state.userName);
+          this.props.history.push("/analytics-dashboard");
+        } else if (this.state.loginEmail == "" || this.state.loginPassword == "") {
+          alert("Missing login information");
+        } else if (this.state.loginEmail !== this.state.userName) {
+          console.log("this "+this.state.userName);
+          alert("Incorrect email address");
+        } else if (this.state.loginPassword !== "12345678") {
+          alert("Incorrect password");
+        }
+       })
+       .catch(error => {
+         alert("Incorrect email address");
+    });
+   } catch (e) {
+     console.log(e);
+   }
+    
   };
 
   handleEmailChange = e => {
@@ -91,7 +104,8 @@ class Login extends Component {
         .then(res => {
           //check value
           const persons = res.data;
-          this.setState({ persons });
+          // this.setState({ persons });
+          // this.state.userName = persons;
         });
         console.log("componentMount");
     } catch (e) {
