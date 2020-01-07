@@ -48,7 +48,8 @@ class AnalyticsDashboard extends Component {
   constructor(props) {
    super(props);
    this.state = {
-     data: "",
+     custId: "",
+     accId: "",
      series1: [{
        data: [0, 0, 0, 0, 0, 0, 0, 0, 0]
      }],
@@ -164,8 +165,11 @@ class AnalyticsDashboard extends Component {
 
  async componentDidMount() {
   try {
-    this.state.data = localStorage.getItem("userName");
-    console.log(this.state.data);
+    this.state.custId = localStorage.getItem("custId");
+    this.state.accId = localStorage.getItem("accId");
+
+    console.log(this.state.custId);
+    console.log(this.state.accId);
   } catch (e) {
     console.log(e);
   }

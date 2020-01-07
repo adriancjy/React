@@ -61,8 +61,20 @@ class Login extends Component {
           this.state.loginEmail == this.state.userName &&
           this.state.loginPassword == "12345678"
         ) {
-          localStorage.setItem("userName", this.state.userName);
+          localStorage.setItem("custId", this.state.custId);
+
+          axios
+        .get(`http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/${this.state.custId}`,{headers})
+        .then(res =>{
+          const accDetails = res.data;
+          this.state.accId = accDetails[0]["accountId"];
+          localStorage.setItem("accId", this.state.accId);
           this.props.history.push("/analytics-dashboard");
+        })
+        .catch(error =>
+          {
+            console.log(error);
+          })
         } else if (this.state.loginEmail == "" || this.state.loginPassword == "") {
           alert("Missing login information");
         } else if (this.state.loginEmail !== this.state.userName) {
@@ -88,30 +100,6 @@ class Login extends Component {
   handlePasswordChange = e => {
     this.setState({ loginPassword: e.target.value });
   };
-
-  //API call
-  async componentDidMount() {
-    try {
-       //Api call with parameters.
-       //axios.get('https://site.com/?name=Flavio')
-      // axios.get("https://site.com/", {
-      //   params: {
-      //     name: "Flavio"
-      //   }
-      // });
-      axios
-        .get("http://dummy.restapiexample.com/api/v1/employees")
-        .then(res => {
-          //check value
-          const persons = res.data;
-          // this.setState({ persons });
-          // this.state.userName = persons;
-        });
-        console.log("componentMount");
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   render() {
     // if (this.state.persons.length > 0) {
